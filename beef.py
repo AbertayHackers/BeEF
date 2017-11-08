@@ -33,14 +33,22 @@ siteToClone = "http://{}".format(args.site)
 # Get BEEF API Token
 try:
     beefTokenRequest = requests.post("http://{}:{}/api/admin/login".format(beefHost, beefPort), data=json.dumps({'username':args.u, 'password':args.P}))
-except requests.exceptions.RequestException:
-    print("[*] Could not get API token")
-    print("[*] BeEF is probably not running")
-    print("[*] Start BeEF: cd /usr/share/beef-xss/ && ./beef &")
+except requests.exceptions.ConnectionError as e:
+    print("[\033[1;31mERROR\033[0m] Could not get API token")
+    print("[\033[1;31mERROR\033[0m] BeEF is probably not running")
     sys.exit(1)
-else:
+except requests.exceptions.RequestException as e:
+    print(e)
+    sys.exit(1)
+
+try:
     beefTokenJSON = json.loads(beefTokenRequest.text)
-    beefToken = beefTokenJSON['token']
+except json.decoder.JSONDecodeError as e: 
+    print("[\033[1;31mERROR\033[0m] Did not get valid response from BeEF server")
+    print("[INFO] Check BeEF password is correct")
+    sys.exit(1)
+
+beefToken = beefTokenJSON['token']
 
 payload = '{' + '"url":"{}", "mount":"{}"'.format(siteToClone, mountPoint) + '}'
 r = requests.post("http://{}:{}/api/seng/clone_page?token={}".format(beefHost, beefPort, beefToken), data = payload)
