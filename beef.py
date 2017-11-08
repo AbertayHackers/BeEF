@@ -65,17 +65,17 @@ if r.ok:
         r = requests.post("http://{}:{}/api/seng/clone_page?token={}".format(beefHost, beefPort, beefToken), data=payload)
         if r.ok:
         # Returns True if status_code is less than 400
-            print("[*] {} Cloned and edited sucessfully!".format(args.site))
-            print("[*] Visit your clone at http://{ip}:{port}{mountpoint}".format(ip=args.i, port=args.p, mountpoint=mountPoint))
+            print("[\033[92mSuccess\033[0m] {} Cloned and edited sucessfully!".format(args.site))
+            print("[\033[92mSuccess\033[0m] Visit your clone at http://{ip}:{port}{mountpoint}".format(ip=args.i, port=args.p, mountpoint=mountPoint))
             sys.exit(0)
     elif args.e and args.i:
-        print("[*] Can't edit cloned page when using remote BeEF instance")
+        print("[\033[1;31mERROR\033[0m]] Can't edit cloned page when using remote BeEF instance")
         sys.exit(1)
     else:
-        print("[*] Visit your clone at http://{ip}:{port}{mountpoint}".format(ip=args.i, port=args.p, mountpoint=mountPoint))
+        print("[\033[92mSuccess\033[0m] Visit your clone at http://{ip}:{port}{mountpoint}".format(ip=args.i, port=args.p, mountpoint=mountPoint))
         sys.exit(0)
 else:
-    print("[*] Something's gone wrong...")
-    print("[*] Have you typed the target URL correctly?")
-    print("[*] Have you got an internet connection? ;)")
+    print("[\033[1;31mERROR\033[0m] Something's gone wrong...")
+    print("[INFO] Have you typed the target URL correctly?")
+    print("[INFO] Have you got an internet connection? ;)")
     sys.exit(1)
