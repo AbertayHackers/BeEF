@@ -8,6 +8,8 @@ import simplejson as json
 # Argparse Setup
 parser = argparse.ArgumentParser(description='Pixel for Pixel websites clones using BeEF')
 
+# Beef password
+parser.add_argument('password', metavar='password', help='Password for BeEF server instance')
 # Site to be cloned
 parser.add_argument('site', help='Site you wish to clone. e.g test.com')
 # Mount point
@@ -18,8 +20,6 @@ parser.add_argument('-i', metavar='IP', default='127.0.0.1', help='IP address of
 parser.add_argument('-p', metavar='PORT', default='3000', help='Port number BeEF is running on')
 # Beef username
 parser.add_argument('-u', metavar='USERNAME', default='beef', help='Username for beef')
-# Beef password
-parser.add_argument('-P', metavar='PASSWORD', default='beef', help='Password for beef')
 # Edit Mode
 parser.add_argument('-e', metavar=('FIND', 'REPLACE'), nargs=2, help='Enables edit mode. E.g. -e string_to_replace string_replacement')
 
@@ -32,7 +32,7 @@ siteToClone = "http://{}".format(args.site)
 
 # Get BEEF API Token
 try:
-    beefTokenRequest = requests.post("http://{}:{}/api/admin/login".format(beefHost, beefPort), data=json.dumps({'username':args.u, 'password':args.P}))
+    beefTokenRequest = requests.post("http://{}:{}/api/admin/login".format(beefHost, beefPort), data=json.dumps({'username':args.u, 'password':args.password}))
 except requests.exceptions.ConnectionError as e:
     print("[\033[1;31mERROR\033[0m] Could not get API token")
     print("[\033[1;31mERROR\033[0m] BeEF is probably not running")
