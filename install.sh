@@ -125,6 +125,7 @@ function install_ruby {
     		rvm use "${ruby_version}" -- default
     	else
     		echo -e "[${FATAL}] Failed to install Ruby ${ruby_version}"
+    		exit 1
     	fi
     fi
 }
@@ -172,6 +173,7 @@ function install_beef {
 
     if bundle install ; then
     	echo -e "[${PASS}] Sucessfully installed BeEF"
+    	exit 0
     else
     	echo -e "[${FATAL}] Failed to install BeEF"
     	exit 1
