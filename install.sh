@@ -54,16 +54,14 @@ function check_compatibility {
 function install_dependencies {
 
 	# Install curl, git and nodejs via apt
-
-	sudo apt update
 	
 	if ! [ -x "$(command -v curl)" ] || ! [ -x "$(command -v git)" ] || ! [ -x "$(command -v nodejs)" ] ; then
-		echo -e "[${INFO}] Installing curl, git and nodejs "
+		echo -e "[${INFO}] Installing curl, git and nodejs"
+		sudo apt update
 		sudo apt install -y curl git nodejs
 	else
 		echo -e "[${PASS}] curl, git and nodejs already installed"
 	fi
-
 }
 
 
