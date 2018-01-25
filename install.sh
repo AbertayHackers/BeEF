@@ -22,7 +22,7 @@ PASS="\\033[1;32mPASS\\033[0m"
 INFO="\\033[1;36mINFO\\033[0m"
 
 
-function compatability_check {
+function check_compatibility {
 
 	# Check if Distribution is Kali
 	# Check if Kali version is 2018.1
@@ -179,7 +179,7 @@ function install_beef {
 
 function main {
 	
-	compatability_check
+	check_compatibility
 	install_dependencies
 	install_rvm
 	get_beef
