@@ -69,11 +69,6 @@ function install_rvm {
 
 	# Fetch RVM PGP signing key, add it to keyring
 	# Install RVM via https://get.rvm.io
-	# Install Ruby version 2.3.0 via RVM
-	# Set Ruby 2.3.0 as default for RVM 
-
-	local ruby_version
-	ruby_version="2.3.0"
 
 	if ! [ -x "$(command -v rvm)" ]; then
 
@@ -84,9 +79,9 @@ function install_rvm {
 
 			echo -e "[${INFO}] Getting RVM signing key"
 			if curl -sSL https://rvm.io/mpapis.asc | gpg --import - ; then
-				echo "[] Sucessfully imported RVM signing key"
+				echo -e "[${PASS}] Sucessfully imported RVM signing key"
 			else
-				echo -e "[${FATAL}] Failed to get and/or import RVM signing key"
+				echo -e "[${FATAL}] Failed to get or import RVM signing key"
 				exit 1
 			fi
 		fi
@@ -109,16 +104,25 @@ function install_rvm {
 	else
 		echo -e "[${PASS}] RVM already installed"
 	fi
+}
+
+function install_ruby {
+
+	# Install Ruby version 2.3.0 via RVM
+	# Set Ruby 2.3.0 as default for RVM 
+
+	local ruby_version
+	ruby_version="2.3.0"
 
 	source "/etc/profile.d/rvm.sh"
 
-	if rvm list default 2.3.0 | grep -q "${ruby_version}" ; then
+	if rvm list default | grep -q "${ruby_version}" ; then
 		echo -e "[${PASS}] RVM Ruby version already ${ruby_version}"
 	else
-		echo -e "[${INFO}] Installing Ruby 2.3.0"
-		if rvm install 2.3.0 ; then
+		echo -e "[${INFO}] Installing Ruby ${ruby_version}"
+		if rvm install "${ruby_version}" ; then
 			echo -e "[${PASS}] Ruby ${ruby_version} installed"
-    		rvm use 2.3.0 -- default
+    		rvm use "${ruby_version}" -- default
     	else
     		echo -e "[${FATAL}] Failed to install Ruby ${ruby_version}"
     	fi
@@ -180,6 +184,7 @@ function main {
 	check_compatibility
 	install_dependencies
 	install_rvm
+	install_ruby
 	get_beef
 	install_beef
 }
