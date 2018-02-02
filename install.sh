@@ -109,7 +109,7 @@ function install_rvm {
 	if ! [ -x "$(command -v rvm)" ]; then
 
 		echo -e "[${INFO}] Installing RVM, this will take a while..."
-		if gpg --list-keys | grep "409B6B1796C275462A1703113804BB82D39DC0E3" ; then
+		if gpg --list-keys | grep -q "409B6B1796C275462A1703113804BB82D39DC0E3" ; then
 			echo -e "[${INFO}] RVM signing key already in keyring"
 		else
 
