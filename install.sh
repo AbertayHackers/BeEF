@@ -7,8 +7,8 @@
 # Tested on:
 #	Kali:
 #		2018.1
-# TODO: 
-# 	Test on Debian
+#	Debian:
+#		9 (stretch) 
 
 
 set -eo pipefail
