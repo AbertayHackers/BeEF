@@ -1,6 +1,5 @@
 # -- Custom -- #
 .DS_Store
-*test.*
 *.test
 *.json
 
