@@ -77,12 +77,26 @@ function install_dependencies {
 
 	# Install curl, git and nodejs via apt
 	
-	if ! [ -x "$(command -v curl)" ] || ! [ -x "$(command -v git)" ] || ! [ -x "$(command -v nodejs)" ] ; then
-		echo -e "[${INFO}] Installing curl, git and nodejs"
-		sudo apt update
-		sudo apt install -y curl git nodejs
+	deps=(curl git nodejs python3)
+
+	echo -e "[${INFO}] Checking if dependencies are present" 
+
+	sudo apt -qq update
+	# apt update run even if all deps are present 
+
+	for package in "${deps[@]}"; do
+		if ! [ -x "$(command -v "${package}")" ]; then
+			sudo apt -qq install -y "${package}"
+		else 
+			echo -e "[${PASS}] ${package} already installed"
+		fi
+	done
+
+	if ! [ -x "$(command -v pip3)" ]; then
+		# Package name differs from binary
+		sudo apt -qq install -y python3-pip
 	else
-		echo -e "[${PASS}] curl, git and nodejs already installed"
+		echo -e "[${PASS}] python3-pip already installed"
 	fi
 }
 
