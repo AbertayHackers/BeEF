@@ -169,7 +169,19 @@ function install_ruby {
 	local ruby_version
 	ruby_version="2.3.0"
 
-	source "/etc/profile.d/rvm.sh"
+	if [[ "${target_os}" == "Kali" ]]; then 
+		# shellcheck disable=SC1091
+		source "/etc/profile.d/rvm.sh"
+
+	elif [[ "${target_os}" == "Debian" ]]; then
+		# shellcheck disable=SC1090
+		source "${HOME}/.rvm/scripts/rvm"
+
+	else 
+		echo -e "[${FATAL}] Compatibility issue"
+		exit 1
+	fi
+
 
 	if rvm list default | grep -q "${ruby_version}" ; then
 		echo -e "[${PASS}] RVM Ruby version already ${ruby_version}"
