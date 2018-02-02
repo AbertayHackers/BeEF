@@ -5,6 +5,12 @@
 import sys, subprocess, argparse, requests
 import simplejson as json
 
+# Define output messages
+FATAL = "\033[1;31m[FATAL]\033[0m"
+WARNING = "\033[1;33m[WARNING]\033[0m"
+PASS = "\033[1;32m[PASS]\033[0m"
+INFO = "\033[1;36m[INFO]\033[0m"
+
 
 def get_args():
     # Argparse Setup
@@ -35,8 +41,8 @@ def get_api_token():
     try:
         api_token_request = requests.post("http://{}:{}/api/admin/login".format(beef_host, beef_port), data=json.dumps({'username':args.u, 'password':args.password}))
     except requests.exceptions.ConnectionError as e:
-        print("[\033[1;31mERROR\033[0m] Could not get API token")
-        print("[\033[1;31mERROR\033[0m] BeEF is probably not running")
+        print("{status} Could not get API token".format(status=FATAL))
+        print("{status} BeEF is probably not running".format(status=INFO))
         sys.exit(1)
     except requests.exceptions.RequestException as e:
         print(e)
@@ -45,8 +51,8 @@ def get_api_token():
     try:
         api_token_json = json.loads(api_token_request.text)
     except json.decoder.JSONDecodeError as e: 
-        print("[\033[1;31mERROR\033[0m] Did not get valid response from BeEF server")
-        print("[INFO] Check BeEF password is correct")
+        print("{status} Did not get valid response from BeEF server".format(status=FATAL))
+        print("{status} Check BeEF password is correct".format(status=INFO))
         sys.exit(1)
 
     api_token = api_token_json['token']
@@ -60,29 +66,31 @@ def clone_site(api_token):
     #r.raise_for_status()
     if r.ok:
     # Returns True if status_code is less than 400
-        print("[\033[92mSuccess\033[0m] {} cloned Sucessfully!".format(args.site))
         if args.e and not args.i:
-            print("[\033[92mSuccess\033[0m] Editing", args.site)
             subprocess.check_output("sed -i.tmp 's/{}/{}/g' /usr/share/beef-xss/extensions/social_engineering/web_cloner/cloned_pages/{}_mod".format(args.e[0], args.e[1], args.site), shell=True)
+        print("{status} {site} cloned Sucessfully!".format(status=PASS, site=ARGS.site))
+            print("{status} Editing {site}".format(status=PASS, site=ARGS.site))
             # use sed to find and replace a string
             # TODO: Path is hard coded, expects BeEF to be installed in /usr/share/beef-xss
             payload = '{' + '"url":"{}", "mount":"{}"'.format(site_to_clone, mount_point) + ', "use_existing":"true"}'
             r = requests.post("http://{}:{}/api/seng/clone_page?token={}".format(beef_host, beef_port, api_token), data=payload)
             if r.ok:
             # Returns True if status_code is less than 400
-                print("[\033[92mSuccess\033[0m] {} cloned and edited sucessfully!".format(args.site))
-                print("[INFO] Visit your clone at http://{ip}:{port}{mountpoint}".format(ip=args.i, port=args.p, mountpoint=mount_point))
+                print("{status} {site} cloned and edited sucessfully!".format(status=PASS, site=ARGS.site))
+                print("{status} Visit your clone at http://{ip}:{port}{mount_point}"
+                      .format(status=INFO, ip=ARGS.i, port=ARGS.p, mount_point=MOUNT_POINT))
                 sys.exit(0)
         elif args.e and args.i:
-            print("[\033[1;31mERROR\033[0m]] Can't edit cloned page when using remote BeEF instance")
             sys.exit(1)
         else:
-            print("[INFO] Visit your clone at http://{ip}:{port}{mountpoint}".format(ip=args.i, port=args.p, mountpoint=mount_point))
+            print("{status} Visit your clone at http://{ip}:{port}{mount_point}"
+                  .format(status=INFO, ip=ARGS.i, port=ARGS.p, mount_point=MOUNT_POINT))
             sys.exit(0)
     else:
-        print("[\033[1;31mERROR\033[0m] Something's gone wrong...")
-        print("[INFO] Have you typed the target URL correctly?")
-        print("[INFO] Have you got an internet connection? ;)")
+
+        print("{status} Something's gone wrong...".format(status=FATAL))
+        print("{status} Have you typed the target URL correctly?".format(status=INFO))
+        print("{status} Have you got an internet connection? ;)".format(status=INFO))
         sys.exit(1)
 
 
