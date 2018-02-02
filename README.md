@@ -12,7 +12,6 @@ With the BeEF Server running `example.com/login.aspx` can be cloned to appear on
 
 ### `curl`
 
-From Relevant BeEF blog.
 ```
 curl -H "Content-Type: application/json; charset=UTF-8" -d
 '{"url":"https://example.com/login.aspx", "mount":"/login.aspx"}'
@@ -39,7 +38,11 @@ curl -H "Content-Type: application/json; charset=UTF-8" -d
 
 ## I do not have BeEF
 
+### Manual Install
 The BeEF Wiki has install [instructions](https://github.com/beefproject/beef/wiki/Installation).
+
+### I Can Haz Script?
+`./install.sh` Installs the BeEF framework as well as `python3` and `python3-pip` 
 
 ## I have BeEF
 
@@ -52,7 +55,7 @@ The BeEF Wiki has install [instructions](https://github.com/beefproject/beef/wik
 |_  New password for this instance: b37c2b8597914c934f3fa5571a942325
 ```
 
-If the default password is set newer versions of BeEF will generate a 16 byte password each time the server is started. See #1 for more info. 
+If the default password is set newer versions of BeEF will generate a 16 byte password each time the server is started. See [#1](https://github.com/AbertayHackers/BeEF/issues/1) for more info. 
 
 
 The password is set at line 20 of `config.yaml`. The default password is `beef`, change this to anything other than `beef[0-9]` or `passw[o0]rd[0-9]`.
