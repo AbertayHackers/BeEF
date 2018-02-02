@@ -25,9 +25,17 @@ curl -H "Content-Type: application/json; charset=UTF-8" -d
 ```
 ./beef.py -m /login.aspx {password} example.com/login.aspx 
 ```
-## Requirements
+
+## `beef.py` Requirements
 - Python 2 or 3 
   - (Preferably 3)
+  - `sudo apt install python3`
+- pip 2 or 3
+  - (Preferably 3)
+  - `sudo apt install python3-pip`
+- `pip` packages
+  - requests
+  - simplejson
 
 ## I do not have BeEF
 
