@@ -67,7 +67,7 @@ git clone git://github.com/AbertayHackers/BeEF
 
 ```
 cd BeEF
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ## Start BeEF Server
