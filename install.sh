@@ -24,29 +24,51 @@ INFO="\\033[1;36mINFO\\033[0m"
 
 function check_compatibility {
 
-	# Check if Distribution is Kali
-	# Check if Kali version is 2018.1
+	# Check if Distribution is Kali or Debian
+	# If Kali check if version is 2018.1 
+	# If Debian check if version 9 (stretch)
+	# Set target_os to Kali or Debian
 
-	local supported_version
+	local kali_supported_version
+	local debian_supported_version
 	local distribution_id
 	local os_version_id
-	supported_version="2018.1"
+
+	target_os=""
+	kali_supported_version="2018.1"
+	debian_supported_version="9"
 	distribution_id="$(lsb_release -i | awk '{print $3}')"
 	os_version_id="$(grep "VERSION_ID" /etc/os-release | awk -F '"' '{print $2}')"
 
 	echo -e "[${INFO}] Checking OS compatability"
 
-	if [[ ! "${distribution_id}" == "Kali" ]]; then
-		echo -e "[${FATAL}] Only tested on Kali Linux"
-		exit 1
-	else
-		echo -e "[${INFO}] Checking Kali version compatability"
+	if [[ "${distribution_id}" == "Kali" ]]; then
 
-		if [[ ! "${os_version_id}" == "${supported_version}" ]]; then
-			echo -e "[${WARNING}] Only tested on Kali Rolling 2018.1"
+		echo -e "[${INFO}] Checking Kali version compatability"
+		
+		if [[ ! "${os_version_id}" == "${kali_supported_version}" ]]; then
+			echo -e "[${WARNING}] Only tested on Kali Rolling ${kali_supported_version}"
 		else
 			echo -e "[${PASS}] Sucessfully completed compatability check"
+			target_os="Kali"
 		fi
+	
+	elif [[ "${distribution_id}" == "Debian" ]]; then 
+
+		echo -e "[${INFO}] Checking Debian version compatability"
+
+		if [[ ! "${os_version_id}" == "${debian_supported_version}" ]]; then
+			echo -e "[${WARNING}] Only tested on Debian ${debian_supported_version}"
+			sleep 2
+		else
+			echo -e "[${PASS}] Sucessfully completed compatability check"
+			target_os="Debian"
+		fi
+		
+	else
+
+		echo -e "[${FATAL}] Only tested on Kali/ Debian"
+		exit 1
 	fi
 }
 
