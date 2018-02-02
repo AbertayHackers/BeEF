@@ -233,7 +233,18 @@ function install_beef {
 
 	cd beef || exit
 
-	source "/etc/profile.d/rvm.sh"
+	if [[ "${target_os}" == "Kali" ]]; then 
+		# shellcheck disable=SC1091
+		source "/etc/profile.d/rvm.sh"
+
+	elif [[ "${target_os}" == "Debian" ]]; then
+		# shellcheck disable=SC1090
+		source "${HOME}/.rvm/scripts/rvm"
+
+	else 
+		echo -e "[${FATAL}] Compatibility issue"
+		exit 1
+	fi
 
 	echo -e "[${INFO}] Installing Bundler"
     gem install bundler
