@@ -23,27 +23,6 @@ curl -H "Content-Type: application/json; charset=UTF-8" -d
 ### `beef.py`
 
 ```
-usage: beef.py [-h] [-m MOUNTPOINT] [-i IP] [-p PORT] [-u USERNAME]
-               [-e FIND REPLACE]
-               password site
-
-Pixel for Pixel websites clones using BeEF
-
-positional arguments:
-  password         Password for BeEF server instance
-  site             Site you wish to clone. e.g test.com
-
-optional arguments:
-  -h, --help       show this help message and exit
-  -m MOUNTPOINT    Mount point of cloned site on your BeEF host
-  -i IP            IP address of your BeEF host
-  -p PORT          Port number BeEF is running on
-  -u USERNAME      Username for beef
-  -e FIND REPLACE  Enables edit mode. E.g. -e string_to_replace
-                   string_replacement
-
-```
-```
 ./beef.py -m /login.aspx {password} example.com/login.aspx 
 ```
 ## Requirements
