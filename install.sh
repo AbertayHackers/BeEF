@@ -250,15 +250,15 @@ function install_beef {
 	fi
 
 	echo -e "[${INFO}] Installing Bundler"
-    gem install bundler
+	gem install bundler
 
-    if bundle install ; then
-    	echo -e "[${PASS}] Sucessfully installed BeEF"
-    	exit 0
-    else
-    	echo -e "[${FATAL}] Failed to install BeEF"
-    	exit 1
-    fi
+	if bundle install --without development ; then
+		echo -e "[${PASS}] Sucessfully installed BeEF"
+		exit 0
+	else
+		echo -e "[${FATAL}] Failed to install BeEF"
+		exit 1
+	fi
 }
 
 
