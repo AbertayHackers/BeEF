@@ -48,6 +48,8 @@ function check_compatibility {
 		
 		if [[ ! "${os_version_id}" == "${kali_supported_version}" ]]; then
 			echo -e "[${WARNING}] Only tested on Kali Rolling ${kali_supported_version}"
+			target_os="Kali"
+			sleep 2
 		else
 			echo -e "[${PASS}] Sucessfully completed compatability check"
 			target_os="Kali"
@@ -59,6 +61,7 @@ function check_compatibility {
 
 		if [[ ! "${os_version_id}" == "${debian_supported_version}" ]]; then
 			echo -e "[${WARNING}] Only tested on Debian ${debian_supported_version}"
+			target_os="Debian"
 			sleep 2
 		else
 			echo -e "[${PASS}] Sucessfully completed compatability check"
