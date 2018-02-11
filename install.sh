@@ -252,7 +252,7 @@ function install_beef {
 	echo -e "[${INFO}] Installing Bundler"
 	gem install bundler
 
-	if bundle install --without development ; then
+	if bundle install --without test development ; then
 		echo -e "[${PASS}] Sucessfully installed BeEF"
 		exit 0
 	else
