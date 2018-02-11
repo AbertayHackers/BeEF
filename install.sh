@@ -11,8 +11,9 @@
 #		9 (stretch) 
 
 
-set -eo pipefail
+set -euo pipefail
 # -e exit if any command returns non-zero status code
+# -u prevent using undefined variables
 # -o pipefail force pipelines to fail on first non-zero status code
 
 
