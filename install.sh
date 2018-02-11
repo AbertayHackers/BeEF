@@ -80,6 +80,7 @@ function check_compatibility {
 function install_dependencies {
 
 	# Install curl, git and nodejs via apt
+	# Install python3 and python3-pip via apt
 	
 	deps=(curl git nodejs python3)
 
