@@ -133,7 +133,7 @@ function main {
 		esac
 	done
 
-	site_to_clone=${@:$OPTIND:1}
+	site_to_clone=${*:$OPTIND:1}
 
 	if [ -z "${cmd}" ]; then
 		usage
