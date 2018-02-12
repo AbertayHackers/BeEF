@@ -11,10 +11,11 @@
 #		9 (stretch) 
 
 
-set -euo pipefail
+set -eo pipefail
 # -e exit if any command returns non-zero status code
-# -u prevent using undefined variables
 # -o pipefail force pipelines to fail on first non-zero status code
+# Cannot use -u, it causes 'source ${HOME}/.rvm/scripts/rvm' to fail
+# 	Error: ${HOME}/.rvm/scripts/functions/support/: line 182: _system_name: unound variable
 
 
 FATAL="\\033[1;31mFATAL\\033[0m"
