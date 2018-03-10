@@ -361,11 +361,19 @@ function install_beef {
 
 
 function main {
-	
+
+	ruby_version="2.3.0"
+
 	check_compatibility
 	install_dependencies
-	install_rvm
-	install_ruby
+	check_ruby_version_manager
+
+	if [[ "${ruby_version_manager}" == "rvm" ]] ; then
+		rvm_install_ruby
+	elif [[ "${ruby_version_manager}" == "rbenv" ]]; then
+		rbenv_install_ruby
+	fi
+
 	get_beef
 	install_beef
 }
