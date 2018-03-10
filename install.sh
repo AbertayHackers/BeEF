@@ -87,9 +87,9 @@ function install_dependencies {
 
 	echo -e "[${INFO}] Checking if dependencies are present" 
 
+	# apt update runs even if all deps are present 
 	sudo apt -qq update
-	# apt update run even if all deps are present 
-
+	
 	for package in "${deps[@]}"; do
 		if ! [ -x "$(command -v "${package}")" ]; then
 			sudo apt -qq install -y "${package}"
@@ -104,6 +104,10 @@ function install_dependencies {
 	else
 		echo -e "[${PASS}] python3-pip already installed"
 	fi
+
+	# Clean up any redundant dependencies
+	sudo apt -qq autoremove
+}
 }
 
 
