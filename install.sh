@@ -190,6 +190,24 @@ function rvm_install_ruby {
 }
 
 
+function rbenv_install_ruby {
+
+	# Install Ruby ${ruby_version} via rbenv
+
+	if rbenv install -l | grep -q "${ruby_version}" ; then
+		echo -e "[${PASS}] rbenv Ruby version already ${ruby_version}"
+	else
+		echo -e "[${INFO}] Installing Ruby ${ruby_version} via rbenv"
+		if rbenv install "${ruby_version}" ; then
+			echo -e "[${PASS}] Ruby ${ruby_version} installed via rbenv"
+    	else
+    		echo -e "[${FATAL}] Failed to install Ruby ${ruby_version} via rbenv"
+    		exit 1
+    	fi
+    fi
+}
+
+
 function get_beef {
 
 	# Check for existing 'beef' directory
