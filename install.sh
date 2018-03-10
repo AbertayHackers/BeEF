@@ -151,33 +151,9 @@ function install_rvm {
 		echo -e "[${INFO}] Getting RVM"
 		if curl -sSL https://get.rvm.io | bash -s stable ; then
 			echo -e "[${PASS}] Installed RVM"
+			source_rvm
 		else
-			echo -e "[${FATAL}] Failed to install RVM"
-			exit 1
-		fi
 
-		if [[ "${target_os}" == "Kali" ]]; then 
-			
-			if grep -q "source /etc/profile.d/rvm.sh" "${HOME}/.bashrc" ; then
-				echo -e "[${PASS}] 'source /etc/profile.d/rvm.sh' already in '~/.bashrc'"
-			else
-				echo "source /etc/profile.d/rvm.sh" >> ~/.bashrc
-				# shellcheck disable=SC1090
-				source "${HOME}"/.bashrc
-			fi
-
-		elif [[ "${target_os}" == "Debian" ]]; then
-			
-			# shellcheck disable=SC2016
-			if grep -q 'source ${HOME}/.rvm/scripts/rvm' "${HOME}/.bashrc" ; then
-				echo -e "[${PASS}] 'source /etc/profile.d/rvm.sh' already in '~/.bashrc'"
-			else
-				echo "source ${HOME}/.rvm/scripts/rvm" >> ~/.bashrc
-				# shellcheck disable=SC1090
-				source "${HOME}"/.bashrc
-			fi
-
-		else 
 			echo -e "[${FATAL}] Compatibility issue"
 			exit 1
 		fi
