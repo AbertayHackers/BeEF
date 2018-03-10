@@ -163,35 +163,25 @@ function install_rvm {
 	fi
 }
 
-function install_ruby {
 
-	# Install Ruby version 2.3.0 via RVM
-	# Set Ruby 2.3.0 as default for RVM 
+function rvm_install_ruby {
 
-	local ruby_version
-	ruby_version="2.3.0"
+	# Install Ruby ${ruby_version} via RVM
+	# Set Ruby ${ruby_version} as default for RVM 
 
-	if [[ "${target_os}" == "Kali" ]]; then 
-		# shellcheck disable=SC1091
-		source "/etc/profile.d/rvm.sh"
-
-	elif [[ "${target_os}" == "Debian" ]]; then
-		# shellcheck disable=SC1090
-		source "${HOME}/.rvm/scripts/rvm"
-
-	else 
-		echo -e "[${FATAL}] Compatibility issue"
-		exit 1
-	fi
-
+	source_rvm
 
 	if rvm list default | grep -q "${ruby_version}" ; then
-		echo -e "[${PASS}] RVM Ruby version already ${ruby_version}"
+		echo -e "[${PASS}] RVM default Ruby version already ${ruby_version}"
 	else
 		echo -e "[${INFO}] Installing Ruby ${ruby_version}"
 		if rvm install "${ruby_version}" ; then
 			echo -e "[${PASS}] Ruby ${ruby_version} installed"
-    		rvm use "${ruby_version}" -- default
+    		if rvm use "${ruby_version}" -- default ; then
+    			echo -e "[${PASS}] Set ${ruby_version} as RVM default"
+    		else
+    			echo -e "[${FATAL}] Failed to set ${ruby_version} as RVM default"
+    		fi
     	else
     		echo -e "[${FATAL}] Failed to install Ruby ${ruby_version}"
     		exit 1
