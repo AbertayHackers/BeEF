@@ -1,6 +1,8 @@
 # BeEF
 Automating website cloning with [BeEF](http://beefproject.com/)  
 
+[![Build Status](https://travis-ci.org/AbertayHackers/BeEF.svg?branch=master)](https://travis-ci.org/AbertayHackers/BeEF) 
+
 ## Web Cloner
 
 Relevant BeEF blog: [BeEF web cloning, BeEF mass mailing, Social Engineering with better BeEF!](http://blog.beefproject.com/2012/09/beef-web-cloning-beef-mass-mailing.html)
