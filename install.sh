@@ -110,6 +110,105 @@ function install_dependencies {
 }
 
 
+function check_ruby_version_manager {
+
+	ruby_version_manager=" "
+	# rvm or rbenv
+	local ruby_version_manager_choice=" "
+	# Boolean y/n
+	local install_rvm_bool="n"
+	# Boolean y/n
+
+	if ! [ -x "$(command -v rvm)" ] && ! [ -x "$(command -v rbenv)" ]; then
+		# Check if RVM or rbenv are present
+		echo -e "[${WARNING}] No Ruby version manager installed"
+		echo -e "[${WARNING}] Using a version manager like RVM or rbenv is highly recommended"
+		echo -e "[${INFO}] If you'd like to manually install rbenv see: \
+		\\n       https://github.com/rbenv/rbenv#installation \
+		\\n       https://gist.github.com/0xmachos/3cb7d989facbe8dc568b8d4912846a81"
+		echo -e "[${INFO}] This script can automtically install RVM"
+
+		# If no version manager ask user if they want to install RVM
+		echo -en "[${INFO}] Do you want to install RVM? (y/N) "
+		read -r  install_rvm_bool
+
+		# Loop untill the user answers one of n/N/y/Y
+		while ! [[ "${install_rvm_bool}" =~ ^(n|N|y|Y)$ ]];
+		do
+			echo -en "[${INFO}] Do you want to install RVM? (y/N) "
+			unset install_rvm_bool
+
+			read -r  install_rvm_bool
+		done
+
+		if [[ "${install_rvm_bool}" =~ ^(y|Y)$ ]]; then
+			# If the user answers yes then call install_rvm
+			echo -e "[${PASS}] User has chosen to install RVM"
+			install_rvm_bool="y"
+
+			install_rvm
+		else
+
+			echo -e "[${FATAL}] User has chosen not to install RVM"
+			echo -e "[${FATAL}] Install RVM or rbenv then rerun this script"
+			exit 1
+		fi
+	
+	elif [ -x "$(command -v rvm)" ] && [ -x "$(command -v rbenv)" ]; then
+		# Check if both RVM and rbenv are present
+		echo -e "[${WARNING}] Mutiple Ruby version managers installed: RVM and rbenv"
+		echo -e "[${INFO}] This script prefers RVM over rbenv"
+
+		# If both installed ask the user if they want to continue with RVM
+		# This script prefers RVM to rbenv 
+		echo -en "[${INFO}] Do you want to continue using RVM or rbenv? (rvm/rbenv) "
+		read -r  ruby_version_manager_choice
+
+		# Loop untill the user answers one of rvm/RVM/rbenv/RBENV
+		while ! [[ "${ruby_version_manager_choice}" =~ ^(rvm|RVM|rbenv|RBENV)$ ]];
+		do
+
+			echo -en "[${INFO}] Do you want to continue using RVM or rbenv? (rvm/rbenv) "
+			unset ruby_version_manager_choice
+
+			read -r  ruby_version_manager_choice
+		done
+
+		if [[ "${ruby_version_manager_choice}" =~ ^(rvm|RVM)$ ]]; then
+			# If users answers RVM/rvm then set ruby_version_manager to rvm
+			# ruby_version_manager is queried in main 
+			ruby_version_manager="rvm"
+
+			echo -e "[${PASS}] User has chosen to continue using RVM"
+		elif [[ "${ruby_version_manager_choice}" =~ ^(rbenv|RBENV)$ ]]; then
+			
+			ruby_version_manager="rbenv"
+
+			echo -e "[${PASS}] User has chosen to continue using rbenv"			
+		fi
+
+	elif [ -x "$(command -v rvm)" ]; then
+		# Check if RVM is installed and set ruby_version_manager
+		# ruby_version_manager is queried in main 
+		ruby_version_manager="rvm"
+
+		echo -e "[${PASS}] ${ruby_version_manager} already installed"
+
+	elif [ -x "$(command -v rbenv)" ]; then
+		# Check if rbenv is installed and set ruby_version_manager
+		# ruby_version_manager is queried in main 
+		ruby_version_manager="rbenv"
+
+		echo -e "[${PASS}] ${ruby_version_manager} already installed"
+
+	else 
+		# Totally fucked it
+		echo -e "[${FATAL}] Unknown error"
+		exit 1
+	fi
+}
+
+
 function source_rvm {
 
 	if [[ "${target_os}" == "Kali" ]]; then 
