@@ -108,6 +108,22 @@ function install_dependencies {
 	# Clean up any redundant dependencies
 	sudo apt -qq autoremove
 }
+
+
+function source_rvm {
+
+	if [[ "${target_os}" == "Kali" ]]; then 
+		# shellcheck disable=SC1091
+		source "/etc/profile.d/rvm.sh"
+
+	elif [[ "${target_os}" == "Debian" ]]; then
+		# shellcheck disable=SC1090
+		source "${HOME}/.rvm/scripts/rvm"
+
+	else 
+		echo -e "[${FATAL}] Compatibility issue"
+		exit 1
+	fi
 }
 
 
