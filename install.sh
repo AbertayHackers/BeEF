@@ -344,11 +344,14 @@ function install_beef {
 
 	source_rvm
 
+	echo -e "[${INFO}] Installing Bundler"
+	if gem install bundler ; then
+		echo -e "[${PASS}] Sucessfully installed bundler"
+		exit 0
+	else
+		echo -e "[${FATAL}] Failed to install bundler"
 		exit 1
 	fi
-
-	echo -e "[${INFO}] Installing Bundler"
-	gem install bundler
 
 	if bundle install --without test development ; then
 		echo -e "[${PASS}] Sucessfully installed BeEF"
