@@ -247,13 +247,13 @@ function install_rvm {
 			fi
 		fi
 
-		echo -e "[${INFO}] Getting RVM"
+		echo -e "[${INFO}] Getting and installing RVM"
 		if curl -sSL https://get.rvm.io | bash -s stable ; then
 			echo -e "[${PASS}] Installed RVM"
 			source_rvm
 		else
 
-			echo -e "[${FATAL}] Compatibility issue"
+			echo -e "[${FATAL}] Failed to install RVM"
 			exit 1
 		fi
 
