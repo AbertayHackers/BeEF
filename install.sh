@@ -83,30 +83,29 @@ function install_dependencies {
 	# Install curl, git and nodejs via apt
 	# Install python3 and python3-pip via apt
 	
-	deps=(curl git nodejs python3)
+	local deps=(curl git nodejs python3 python3-pip \
+		build-essential openssl libreadline6-dev zlib1g \
+		zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 \
+		libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev \
+		autoconf libc6-dev libncurses5-dev automake libtool \
+		bison)
 
-	echo -e "[${INFO}] Checking if dependencies are present" 
+	echo -e "[${INFO}] Installing dependencies via apt-get" 
 
 	# apt update runs even if all deps are present 
-	sudo apt -qq update
+	sudo apt-get -qq update
 	
 	for package in "${deps[@]}"; do
-		if ! [ -x "$(command -v "${package}")" ]; then
-			sudo apt -qq install -y "${package}"
-		else 
-			echo -e "[${PASS}] ${package} already installed"
+		if sudo apt-get -qq install -y "${package}"; then
+			echo -e "[${PASS}] ${package} installed"
+		else
+			echo -e "[${FATAL}] Failed to install ${package} install"
+			exit 1
 		fi
 	done
 
-	if ! [ -x "$(command -v pip3)" ]; then
-		# Package name differs from binary
-		sudo apt -qq install -y python3-pip
-	else
-		echo -e "[${PASS}] python3-pip already installed"
-	fi
-
 	# Clean up any redundant dependencies
-	sudo apt -qq autoremove
+	sudo apt-get -qq autoremove -y
 }
 
 
