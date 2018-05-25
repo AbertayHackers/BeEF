@@ -2,7 +2,7 @@
 
 language: bash
 script:
-  - ./test.sh
+  - ./test
 notifications:
   email: false
   slack:
