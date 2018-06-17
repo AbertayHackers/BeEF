@@ -289,7 +289,7 @@ function rbenv_install_ruby {
 
   # Install Ruby ${ruby_version} via rbenv
 
-  if rbenv install -l | grep -q "${ruby_version}" ; then
+  if rbenv  version | grep -q "${ruby_version}" ; then
     echo -e "[${PASS}] rbenv Ruby version already ${ruby_version}"
   else
     echo -e "[${INFO}] Installing Ruby ${ruby_version} via rbenv"
