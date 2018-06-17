@@ -115,7 +115,7 @@ function install_dependencies {
   done
 
   # Clean up any redundant dependencies
-  sudo apt-get -qq autoremove -y
+  sudo apt-get -qq autoremove -y >/dev/null
 
   echo -e "[${PASS}] Dependencies installed"
   return 0
