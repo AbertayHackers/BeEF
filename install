@@ -96,16 +96,16 @@ function install_dependencies {
   sudo apt-get -qq update
   
   for package in "${deps[@]}"; do
-    if sudo apt-get -qq install -y "${package}" >/dev/null; then
-      echo -e "[${PASS}] ${package} installed"
-    else
-      echo -e "[${FATAL}] Failed to install ${package} install"
+    if ! sudo apt-get -qq install -y "${package}" >/dev/null; then
+      echo -e "[${FATAL}] Failed to install ${package}"
       exit 1
     fi
   done
 
   # Clean up any redundant dependencies
   sudo apt-get -qq autoremove -y
+
+  echo -e "[${PASS}] Dependencies installed"
 }
 
 
