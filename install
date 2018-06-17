@@ -294,6 +294,7 @@ function rbenv_install_ruby {
   else
     echo -e "[${INFO}] Installing Ruby ${ruby_version} via rbenv"
     if rbenv install "${ruby_version}" ; then
+      rbenv global "${ruby_version}"
       echo -e "[${PASS}] Ruby ${ruby_version} installed via rbenv"
       else
         echo -e "[${FATAL}] Failed to install Ruby ${ruby_version} via rbenv"
