@@ -118,6 +118,7 @@ function install_dependencies {
   sudo apt-get -qq autoremove -y
 
   echo -e "[${PASS}] Dependencies installed"
+  return 0
 }
 
 
