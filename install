@@ -90,7 +90,8 @@ function install_dependencies {
     autoconf libc6-dev libncurses5-dev automake libtool \
     bison)
 
-  echo -e "[${INFO}] Installing dependencies via apt-get" 
+  echo -e "[${INFO}] Installing ${#deps[@]} dependencies via apt-get"
+  sleep 2 
 
   # apt update runs even if all deps are present 
   sudo apt-get -qq update
