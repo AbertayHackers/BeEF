@@ -131,15 +131,6 @@ function check_ruby_version_manager {
     echo -en "[${INFO}] Do you want to install RVM? (y/N) "
     read -r  install_rvm_bool
 
-    # Loop untill the user answers one of n/N/y/Y
-    while ! [[ "${install_rvm_bool}" =~ ^(n|N|y|Y)$ ]];
-    do
-      echo -en "[${INFO}] Do you want to install RVM? (y/N) "
-      unset install_rvm_bool
-
-      read -r  install_rvm_bool
-    done
-
     if [[ "${install_rvm_bool}" =~ ^(y|Y)$ ]]; then
       # If the user answers yes then call install_rvm
       echo -e "[${PASS}] $USER has chosen to install RVM"
