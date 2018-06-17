@@ -83,20 +83,29 @@ function install_dependencies {
   # Install required dependencies via apt-get
   # TODO: Check target_os to install different deps depending on the OS
   
-  local deps=(curl git nodejs python3 python3-pip \
+  local all_deps=(curl git nodejs python3 python3-pip \
     build-essential openssl libreadline-dev zlib1g \
     zlib1g-dev libssl1.0-dev libyaml-dev libsqlite3-0 \
     libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev \
     autoconf libc6-dev libncurses5-dev automake libtool \
     bison)
-
-  echo -e "[${INFO}] Installing ${#deps[@]} dependencies via apt-get"
-  sleep 2 
-
-  # apt update runs even if all deps are present 
-  sudo apt-get -qq update
+  local needed_deps=()
   
-  for package in "${deps[@]}"; do
+  for package in "${all_deps[@]}"; do
+    if ! dpkg-query -W -f='${Status}' "${package}" 2>/dev/null | grep -q 'install ok installed'; then
+      needed_deps+=("${package}")
+    fi
+  done
+
+  echo -e "[${INFO}] Installing ${#needed_deps[@]} dependencies via apt-get"
+  sleep 2
+
+  if ! [ ${#needed_deps[@]} -eq 0 ]; then
+    sudo apt-get -qq update
+  fi
+
+  for package in "${needed_deps[@]}"; do
+    echo -e "[${INFO}] Installing ${package}"
     if ! sudo apt-get -qq install -y "${package}" >/dev/null; then
       echo -e "[${FATAL}] Failed to install ${package}"
       exit 1
