@@ -142,13 +142,13 @@ function check_ruby_version_manager {
 
     if [[ "${install_rvm_bool}" =~ ^(y|Y)$ ]]; then
       # If the user answers yes then call install_rvm
-      echo -e "[${PASS}] User has chosen to install RVM"
+      echo -e "[${PASS}] $USER has chosen to install RVM"
       install_rvm_bool="y"
 
       install_rvm
     else
 
-      echo -e "[${FATAL}] User has chosen not to install RVM"
+      echo -e "[${FATAL}] $USER has chosen not to install RVM"
       echo -e "[${FATAL}] Install RVM or rbenv then rerun this script"
       exit 1
     fi
@@ -178,12 +178,12 @@ function check_ruby_version_manager {
       # ruby_version_manager is queried in main 
       ruby_version_manager="rvm"
 
-      echo -e "[${PASS}] User has chosen to continue using RVM"
+      echo -e "[${PASS}] $USER has chosen to continue using RVM"
     elif [[ "${ruby_version_manager_choice}" =~ ^(rbenv|RBENV)$ ]]; then
       
       ruby_version_manager="rbenv"
 
-      echo -e "[${PASS}] User has chosen to continue using rbenv"     
+      echo -e "[${PASS}] $USER has chosen to continue using rbenv"     
     fi
 
   elif [ -x "$(command -v rvm)" ]; then
