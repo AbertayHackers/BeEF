@@ -97,11 +97,13 @@ function install_dependencies {
     fi
   done
 
-  echo -e "[${INFO}] Installing ${#needed_deps[@]} dependencies via apt-get"
-  sleep 2
-
   if ! [ ${#needed_deps[@]} -eq 0 ]; then
+    echo -e "[${INFO}] Installing ${#needed_deps[@]} dependencies via apt-get"
+    sleep 2
     sudo apt-get -qq update
+  else
+    echo -e "[${PASS}] All dependencies already installed"
+    return 0 
   fi
 
   for package in "${needed_deps[@]}"; do
