@@ -53,7 +53,7 @@ function check_compatibility {
       target_os="Kali"
       sleep 2
     else
-      echo -e "[${PASS}] Sucessfully completed compatability check"
+      echo -e "[${PASS}] Successfully completed compatability check"
       target_os="Kali"
     fi
   
@@ -66,7 +66,7 @@ function check_compatibility {
       target_os="Debian"
       sleep 2
     else
-      echo -e "[${PASS}] Sucessfully completed compatability check"
+      echo -e "[${PASS}] Successfully completed compatability check"
       target_os="Debian"
     fi
     
@@ -279,7 +279,7 @@ function install_rvm {
 
       echo -e "[${INFO}] Getting RVM signing key"
       if curl -sSL https://rvm.io/mpapis.asc | gpg --import - ; then
-        echo -e "[${PASS}] Sucessfully imported RVM signing key"
+        echo -e "[${PASS}] Successfully imported RVM signing key"
       else
         echo -e "[${FATAL}] Failed to get or import RVM signing key"
         exit 1
@@ -370,7 +370,7 @@ function get_beef {
 
   echo -e "[${INFO}] Cloning BeEF source into 'beef'"
   if git clone "git://github.com/beefproject/beef.git"; then
-    echo -e "[${PASS}] Sucessfully cloned BeEF source into 'beef'"
+    echo -e "[${PASS}] Successfully cloned BeEF source into 'beef'"
   else
     echo -e "[${FATAL}] Failed to clone BeEF source into 'beef'"
     exit 1
@@ -391,14 +391,14 @@ function install_beef {
 
     echo -e "[${INFO}] Installing Bundler"
     if gem install bundler ; then
-      echo -e "[${PASS}] Sucessfully installed bundler"
+      echo -e "[${PASS}] Successfully installed bundler"
     else
       echo -e "[${FATAL}] Failed to install bundler"
       exit 1
     fi
 
     if bundle install --without test development ; then
-      echo -e "[${PASS}] Sucessfully installed BeEF"
+      echo -e "[${PASS}] Successfully installed BeEF"
       version_manager_fix
       exit 0
     else
