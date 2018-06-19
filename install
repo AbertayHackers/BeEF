@@ -128,7 +128,7 @@ function check_ruby_version_manager {
   # rvm or rbenv
   local ruby_version_manager_choice=" "
   # rvm or rbenv
-  local install_rvm_bool="n"
+  install_rvm_bool="n"
   # Boolean y/n
 
   version_manager_fix
@@ -151,7 +151,6 @@ function check_ruby_version_manager {
       echo -e "[${PASS}] $USER has chosen to install RVM"
       install_rvm_bool="y"
 
-      install_rvm
     else
 
       echo -e "[${FATAL}] $USER has chosen not to install RVM"
@@ -415,8 +414,12 @@ function main {
   ruby_version="2.3.0"
 
   check_compatibility
-  install_dependencies
   check_ruby_version_manager
+  install_dependencies
+
+  if [[ "${install_rvm_bool}" = "y" ]]; then
+    install_rvm
+  fi
 
   if [[ "${ruby_version_manager}" == "rvm" ]] ; then
     rvm_install_ruby
