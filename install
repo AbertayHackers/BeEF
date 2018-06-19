@@ -384,12 +384,14 @@ function install_beef {
   # Source '/etc/profile.d/rvm.sh' again just to be sure
   # Install Bundler via gem
   # Install BeEF via bundle[r]
+  
   (
     cd beef || exit
 
     version_manager_fix
 
     echo -e "[${INFO}] Installing Bundler"
+    
     if gem install bundler ; then
       echo -e "[${PASS}] Successfully installed bundler"
     else
@@ -404,7 +406,7 @@ function install_beef {
     else
       echo -e "[${FATAL}] Failed to install BeEF"
       exit 1
-  fi
+    fi
   )
 }
 
