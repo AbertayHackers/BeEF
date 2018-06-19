@@ -404,7 +404,6 @@ function install_beef {
     if bundle install --without test development ; then
       echo -e "[${PASS}] Successfully installed BeEF"
       version_manager_fix
-      exit 0
     else
       echo -e "[${FATAL}] Failed to install BeEF"
       exit 1
