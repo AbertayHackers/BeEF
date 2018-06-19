@@ -399,6 +399,8 @@ function install_beef {
       exit 1
     fi
 
+    echo -e "[${INFO}] Installing BeEF"
+
     if bundle install --without test development ; then
       echo -e "[${PASS}] Successfully installed BeEF"
       version_manager_fix
