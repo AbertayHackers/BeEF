@@ -124,7 +124,7 @@ function install_dependencies {
 
 function check_ruby_version_manager {
 
-  ruby_version_manager=" "
+  ruby_version_manager=""
   # rvm or rbenv
   local ruby_version_manager_choice=" "
   # rvm or rbenv
