@@ -133,7 +133,7 @@ function check_ruby_version_manager {
 
   version_manager_fix
 
-  if ! [ -x "$(command -v rvm)" ] && ! [ -x "$(command -v rbenv)" ]; then
+  if ! [ -n "$(command -v rvm)" ] && ! [ -n "$(command -v rbenv)" ]; then
     # Check if RVM or rbenv are present
     echo -e "[${WARNING}] No Ruby version manager installed"
     echo -e "[${WARNING}] Using a version manager like RVM or rbenv is highly recommended"
@@ -158,7 +158,7 @@ function check_ruby_version_manager {
       exit 1
     fi
   
-  elif [ -x "$(command -v rvm)" ] && [ -x "$(command -v rbenv)" ]; then
+  elif [ -n "$(command -v rvm)" ] && [ -n "$(command -v rbenv)" ]; then
     # Check if both RVM and rbenv are present
     echo -e "[${WARNING}] Mutiple Ruby version managers installed: RVM and rbenv"
     echo -e "[${INFO}] This script prefers RVM over rbenv"
@@ -191,14 +191,14 @@ function check_ruby_version_manager {
       echo -e "[${PASS}] $USER has chosen to continue using rbenv"     
     fi
 
-  elif [ -x "$(command -v rvm)" ]; then
+  elif [ -n "$(command -v rvm)" ]; then
     # Check if RVM is installed and set ruby_version_manager
     # ruby_version_manager is queried in main 
     ruby_version_manager="rvm"
 
     echo -e "[${PASS}] ${ruby_version_manager} already installed"
 
-  elif [ -x "$(command -v rbenv)" ]; then
+  elif [ -n "$(command -v rbenv)" ]; then
     # Check if rbenv is installed and set ruby_version_manager
     # ruby_version_manager is queried in main 
     ruby_version_manager="rbenv"
