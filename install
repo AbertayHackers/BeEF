@@ -214,30 +214,53 @@ function check_ruby_version_manager {
 
 function version_manager_fix {
 
-  if [[ "${ruby_version_manager}" == "rvm" ]]; then
-
-    if [[ "${target_os}" == "Kali" ]]; then 
-      # shellcheck disable=SC1091
-      source "/etc/profile.d/rvm.sh"
-
-    elif [[ "${target_os}" == "Debian" ]]; then
-      # shellcheck disable=SC1090
-      source "${HOME}/.rvm/scripts/rvm"
-
-    else 
-      echo -e "[${FATAL}] Compatibility issue"
-      exit 1
-    fi
-
-  elif [[ "${ruby_version_manager}" == "rbenv" ]]; then
+  if [[ -z "${ruby_version_manager}" ]]; then
     
-    "$HOME"/.rbenv/bin/rbenv init
+    # Try both ¯\_(ツ)_/¯  
+
+    set +e
+    # DISABLE: exit if any command returns non-zero status code
+    # One of these will likely exit 1 because only one version manager should be present
+    
+    rvm_fix >/dev/null 2>&1
+    rbenv_fix >/dev/null 2>&1
+    
+    # ENABLE: exit if any command returns non-zero status code
+    set -e
+
+  elif [[ "${ruby_version_manager}" == "rvm" ]]; then
+    rvm_fix
+    
+  elif [[ "${ruby_version_manager}" == "rbenv" ]]; then 
+    rbenv_fix
     
   else
      # Totally fucked it
     echo -e "[${FATAL}] Unknown error"
     exit 1
   fi 
+}
+
+
+function rvm_fix {
+  
+  if [[ "${target_os}" == "Kali" ]]; then
+    # shellcheck disable=SC1091
+    source "/etc/profile.d/rvm.sh"
+
+  elif [[ "${target_os}" == "Debian" ]]; then
+    # shellcheck disable=SC1090
+    source "${HOME}/.rvm/scripts/rvm"
+
+  else
+    echo -e "[${FATAL}] Compatibility issue"
+    exit 1
+  fi
+}
+
+function rbenv_fix {
+
+  "$HOME"/.rbenv/bin/rbenv init
 }
 
 
