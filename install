@@ -386,7 +386,7 @@ function install_beef {
   # Install BeEF via bundle[r]
   
   (
-    cd beef || exit
+    cd "beef" || exit
 
     version_manager_fix
 
