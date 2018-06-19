@@ -368,11 +368,11 @@ function get_beef {
     mv -f "beef" "${old_beef_dir_name}"
   fi
 
-  echo -e "[${INFO}] Cloning BeEF source"
+  echo -e "[${INFO}] Cloning BeEF source into 'beef'"
   if git clone "git://github.com/beefproject/beef.git"; then
     echo -e "[${PASS}] Sucessfully cloned BeEF source into 'beef'"
   else
-    echo -e "[${FATAL}] Failed to clone BeEF source"
+    echo -e "[${FATAL}] Failed to clone BeEF source into 'beef'"
     exit 1
   fi
 }
