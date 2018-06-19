@@ -296,7 +296,6 @@ function install_rvm {
     echo -e "[${INFO}] Getting and installing RVM"
     if curl -sSL https://get.rvm.io | bash -s stable ; then
       ruby_version_manager="rvm"
-      version_manager_fix
       echo -e "[${PASS}] Installed RVM"
       
     else
@@ -343,6 +342,8 @@ function rvm_install_ruby {
 function rbenv_install_ruby {
 
   # Install Ruby ${ruby_version} via rbenv
+
+  version_manager_fix
 
   if rbenv  version | grep -q "${ruby_version}" ; then
     echo -e "[${PASS}] rbenv Ruby version already ${ruby_version}"
@@ -410,7 +411,6 @@ function install_beef {
 
     if bundle install --without test development ; then
       echo -e "[${PASS}] Successfully installed BeEF"
-      version_manager_fix
     else
       echo -e "[${FATAL}] Failed to install BeEF"
       exit 1
