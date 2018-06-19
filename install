@@ -410,8 +410,8 @@ function install_beef {
     fi
   )
 
-  echo -e "[${INFO}] Before running './beef' you will need to execute 'source $HOME/.rvm/scripts/rvm'"
-  echo -e "[${INFO}] In rare cases you will need to reopen your terminal window"
+  echo -e "[${WARNING}] Before running './beef' you will need to execute 'source $HOME/.rvm/scripts/rvm'"
+  echo -e "[${WARNING}] In rare cases you will need to reopen your terminal window"
 }
 
 
