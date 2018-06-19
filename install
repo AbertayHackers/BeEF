@@ -277,14 +277,11 @@ function install_rvm {
   # Fetch RVM PGP signing key, add it to keyring
   # Install RVM via https://get.rvm.io
 
-  if ! [ -x "$(command -v rvm)" ]; then
-
-    echo -e "[${INFO}] Installing RVM, this will take a while..."
     if gpg --list-keys | grep -q "409B6B1796C275462A1703113804BB82D39DC0E3" ; then
-      echo -e "[${INFO}] RVM signing key already in keyring"
+      echo -e "[${PASS}] RVM signing key already in keyring"
     else
-
       echo -e "[${INFO}] Getting RVM signing key"
+
       if curl -sSL https://rvm.io/mpapis.asc | gpg --import - ; then
         echo -e "[${PASS}] Successfully imported RVM signing key"
       else
@@ -293,22 +290,16 @@ function install_rvm {
       fi
     fi
 
-    echo -e "[${INFO}] Getting and installing RVM"
+    echo -e "[${INFO}] Installing RVM"
+    
     if curl -sSL https://get.rvm.io | bash -s stable ; then
       ruby_version_manager="rvm"
       echo -e "[${PASS}] Installed RVM"
-      
     else
-
       echo -e "[${FATAL}] Failed to install RVM"
       exit 1
     fi
 
-  else
-    ruby_version_manager="rvm"
-    version_manager_fix
-    echo -e "[${PASS}] RVM already installed"
-  fi
 }
 
 
