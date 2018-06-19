@@ -208,7 +208,7 @@ function check_ruby_version_manager {
 
   else 
     # Totally fucked it
-    echo -e "[${FATAL}] Unknown error"
+    echo -e "[${FATAL}] Unknown error in 'check_ruby_version_manager'"
     exit 1
   fi
 }
@@ -238,7 +238,7 @@ function version_manager_fix {
     
   else
      # Totally fucked it
-    echo -e "[${FATAL}] Unknown error"
+    echo -e "[${FATAL}] Unknown error in 'version_manager_fix'"
     exit 1
   fi 
 }
