@@ -152,12 +152,15 @@ function main {
 
   if [ -z "${cmd}" ]; then
     usage
+
   elif [ -z "${password}" ]; then
     echo "${FATAL} password parameter required"
     usage
+
   elif [ -z "${site_to_clone}" ]; then
     echo "${FATAL} No site_to_clone specified"
     usage
+
   elif [[ "${debug}" == "debug" ]]; then
     set -x
   fi
