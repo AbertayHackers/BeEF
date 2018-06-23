@@ -62,13 +62,14 @@ function get_api_token {
 
   if [ -z "${api_token}" ]; then
 
-    exit 1
     echo "${FATAL} Failed to get API token"
     echo "${INFO} Check BeEF is running"
     echo "${INFO} Check BeEF username/password"
     echo "${INFO} Check BeEF ip and port are correct"
+    return 1
   else 
     echo -e "${PASS} Successfully got API token"
+    return 0
   fi
 }
 
@@ -92,12 +93,12 @@ function clone_site {
   if [[ "${api_status}" == "success" ]]; then
     echo "${PASS} Successfully cloned http://${site_to_clone} to http://${beef_ip}:${beef_port}${mount_point}"
     # HTTP hack
-    exit 0
+    return 0
   else
-    exit 1
     echo "${FATAL} Failed to clone ${site_to_clone}"
     echo "${INFO} Is site_to_clone URL correct?"
     echo "${INFO} http(s):// should be omitted e.g -s hacksoc.co.uk"
+    return 1
   fi
 }
 
