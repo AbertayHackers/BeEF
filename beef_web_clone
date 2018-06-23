@@ -35,18 +35,17 @@ INFO="${BLUE}[INFO]${RESET}"
 
 function usage {
 
-  # echo -e "\\nClone sites with BeEF\\n"
-  echo -e "Usage: ./beef.sh [OPTIONS] -P {password} site_to_clone"
+  echo -e "\\nClone sites with BeEF\\n"
+  echo "Usage: ./beef_web_clone [OPTIONS] -P {password} site_to_clone"
 
-  echo -e "\\n  -P  password:   BeEF server password"
-  echo "  -u  username:   BeEF server username  (default: beef)"
-  echo "  -i  beef_ip:  BeEF server IP address  (default: 127.0.0.1)"
-  echo "  -p  beef_port:  BeEF server port  (default: 3000)"
-  echo "  -m  mount_point:  URL to mount page on  (default: /)"
-  echo -e " -v  Debug mode  set -x\\n"
+  echo -e "\\n  -P  password:     BeEF server password"
+  echo "  -u  username:     BeEF server username    (${BOLD}default: beef${RESET})"
+  echo "  -i  beef_ip:      BeEF server IP address  (${BOLD}default: 127.0.0.1${RESET})"
+  echo "  -p  beef_port:    BeEF server port        (${BOLD}default: 3000${RESET})"
+  echo "  -m  mount_point:  URL to mount page on    (${BOLD}default: /${RESET})"
+  echo -e "  -v  Debug mode:   set -x\\n"
 
-
-  exit 0
+  return 1
 }
 
 
