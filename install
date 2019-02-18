@@ -92,7 +92,7 @@ function check_ruby_version_manager {
 
   version_manager_fix
 
-  if ! [ -n "$(command -v rvm)" ] && ! [ -n "$(command -v rbenv)" ]; then
+  if [ -z "$(command -v rvm)" ] &&  [ -z "$(command -v rbenv)" ]; then
     # Check if RVM or rbenv are present
     echo -e "[${WARNING}] No Ruby version manager installed"
     echo -e "[${WARNING}] Using a version manager like RVM or rbenv is highly recommended"
