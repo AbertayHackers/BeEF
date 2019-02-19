@@ -17,11 +17,26 @@ set -eo pipefail
 # Cannot use -u, it causes 'source ${HOME}/.rvm/scripts/rvm' to fail
 #   Error: ${HOME}/.rvm/scripts/functions/support/: line 182: _system_name: unound variable
 
+### Define Colours ###
+# Solarized colors, taken from http://git.io/solarized-colors
+tput sgr0; 
+# reset colors
 
-FATAL="\\033[1;31mFATAL\\033[0m"
-WARNING="\\033[1;33mWARNING\\033[0m"
-PASS="\\033[1;32mPASS\\033[0m"
-INFO="\\033[1;36mINFO\\033[0m"
+readonly BOLD=$(tput bold)
+readonly RESET=$(tput sgr0)
+
+readonly RED=$(tput setaf 1)
+readonly YELLOW=$(tput setaf 136)
+readonly GREEN=$(tput setaf 64)
+readonly VIOLET=$(tput setaf 61)
+
+### END Colours ###
+
+
+readonly FATAL="${RED}FATAL${RESET}"
+readonly WARNING="${YELLOW}WARNING${RESET}"
+readonly PASS="${GREEN}PASS${RESET}"
+readonly INFO="${VIOLET}INFO${RESET}"
 
 
 ### UTILITY FUNCTIONS ###
