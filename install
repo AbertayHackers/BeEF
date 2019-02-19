@@ -430,7 +430,7 @@ function install_beef {
 
 function main {
 
-  ruby_version="2.5.1"
+  declare -r ruby_version="2.5.1"
 
   check_compatibility
   check_ruby_version_manager
