@@ -290,7 +290,7 @@ function install_rvm {
   # Fetch RVM PGP signing key, add it to keyring
   # Install RVM via https://get.rvm.io
 
-    if gpg --list-keys | grep -q "409B6B1796C275462A1703113804BB82D39DC0E3" ; then
+    if gpg --list-keys | grep -q "409B6B1796C275462A1703113804BB82D39DC0E3" && gpg --list-keys | grep -q "7D2BAF1CF37B13E2069D6956105BD0E739499BDB"; then
       echo -e "[${PASS}] RVM signing key already in keyring"
     else
       echo -e "[${INFO}] Getting RVM signing key"
