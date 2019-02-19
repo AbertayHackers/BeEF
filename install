@@ -295,10 +295,10 @@ function install_rvm {
     else
       echo -e "[${INFO}] Getting RVM signing key"
 
-      if curl -sSL https://rvm.io/mpapis.asc | gpg --import - ; then
-        echo -e "[${PASS}] Successfully imported RVM signing key"
+      if curl -sSL https://rvm.io/mpapis.asc | gpg --import -  && curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -; then
+        echo -e "[${PASS}] Successfully imported RVM signing keys"
       else
-        echo -e "[${FATAL}] Failed to get or import RVM signing key"
+        echo -e "[${FATAL}] Failed to get or import RVM signing keys"
         exit 1
       fi
     fi
